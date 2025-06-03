@@ -1,4 +1,10 @@
 from cmu_graphics import *
+def drawGrid(spacing=50, color='lightGray'):
+    for x in range(0, app.width, spacing):
+        Line(x, 0, x, app.height, fill=color)
+    for y in range(0, app.height, spacing):
+        Line(0, y, app.width, y, fill=color)
+drawGrid()
 app.background=gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
 Rect(0,160,60,140,fill='gold')
 Rect(120,220,40,80,fill='yellow')
