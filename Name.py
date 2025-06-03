@@ -1,4 +1,7 @@
 from cmu_graphics import *
+import numpy as np
+import matplotlib as plt
+import math
 def drawGrid(spacing=50, color='lightGray'):
     for x in range(0, app.width, spacing):
         Line(x, 0, x, app.height, fill=color)
@@ -12,9 +15,11 @@ Rect(200,200,40,100,fill='yellow')
 Rect(280,200,40,100,fill='yellow')
 Rect(280,0,40,140,fill='yellow')
 Rect(360,180,40,120,fill='gold')
-Tsunami1=Rect(0,0,30,300,fill='darkTurquoise')
-Tsunami2=Circle(30,60,70,fill='darkTurquoise')
-Tsunami3=Circle(30,240,70,fill='darkTurquoise')
+Tsunami1=Rect(0,0,20,300,fill='darkTurquoise')
+Tsunami2=Circle(30,40,40,fill='darkTurquoise')
+Tsunami3=Circle(30,260,40,fill='darkTurquoise')
+Tsunami4=Circle(30,150,40,fill='darkTurquoise')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
+
 cmu_graphics.run()
