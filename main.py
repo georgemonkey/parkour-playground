@@ -15,11 +15,24 @@ Rect(200,200,40,100,fill='yellow')
 Rect(280,200,40,100,fill='yellow')
 Rect(280,0,40,140,fill='yellow')
 Rect(360,180,40,120,fill='gold')
-Tsunami1=Rect(0,0,20,300,fill='darkTurquoise')
-Tsunami2=Circle(30,40,40,fill='darkTurquoise')
-Tsunami3=Circle(30,260,40,fill='darkTurquoise')
-Tsunami4=Circle(30,150,40,fill='darkTurquoise')
+#Tsunami1=Rect(0,0,20,300,fill='darkTurquoise')
+#Tsunami2=Circle(30,40,40,fill='darkTurquoise')
+#Tsunami3=Circle(30,260,40,fill='darkTurquoise')
+#Tsunami4=Circle(30,150,40,fill='darkTurquoise')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
+
+Player=Rect(15,110,30,50,fill='white',border='black')
+
+def onKeyPress(key):
+    if key=='space':
+        Player.centerY-=5
+        def onStep():
+            app.stepsPerSecond=5
+            Player.centerY+=1
+    elif key=='left':
+        Player.centerX-=5
+    elif key=='right':
+        Player.centerX+=5
 
 cmu_graphics.run()
