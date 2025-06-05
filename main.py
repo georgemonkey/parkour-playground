@@ -19,7 +19,7 @@ def drawGrid(spacing=50, color='lightGray'):
         Line(0, y, app.width, y, fill=color)
 drawGrid()
 
-app.background = gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
+
 
 Start = Rect(0,160,60,140,fill='gold')
 Rect(120,220,40,80,fill='yellow')
@@ -67,6 +67,15 @@ def onKeyPress(key):
         move_left = True
     elif key == 'right':
         move_right = True
+    
+    if Player.centerY>325:
+        Player.centerY=325
+    if Player.centerY<25:
+        Player.centerY=25
+    if Player.centerX>385:
+        Player.centerX=385
+    if Player.centerX<15:
+        Player.centerX=15
 
 def onKeyRelease(key):
     global move_left, move_right
