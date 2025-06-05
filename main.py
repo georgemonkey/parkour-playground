@@ -1,5 +1,5 @@
 from cmu_graphics import *
-
+#sthisisright
 app.background = gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
 app.stepsPerSecond = 60
 #GRAVITY
