@@ -22,7 +22,7 @@ FinishLine = Rect(360,180,40,10,fill='green')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
 
-Player = Rect(15,110,30,50,fill='white',border='black')
+Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill='white', border='black')
 
 Background1 = Rect(0,0,400,400,fill=gradient('yellow','orange','darkOrange',start='top'))
 Win = Label('You Win!',200,200,size=50,visible=False)
@@ -45,8 +45,8 @@ def onKeyPress(key):
         Start4.visible = False
         Start5.visible = False
         Background1.visible = False
-        Player.centerX = 35
-        Player.centerY = 305
+        Player.centerX = Start.centerX
+        Player.bottom = Start.top
         Win.visible = False
         Loose.visible = False
         Again.visible = False
@@ -100,7 +100,7 @@ def onStep():
         player_velocity_y = 0
         is_jumping = False
 
-    for obs in [Start, Obs1, Obs2, Obs3, Obs4, Finish]:
+    for obs in [Start, Obs1, Obs2, Obs3, Obs4,Finish]:
         checkCollision(obs)
 
     if Player.top < 0:
@@ -113,9 +113,6 @@ def onStep():
         Player.right = 400
 
     if Player.hitsShape(Finish):
-        if Player.centerX<360:
-            Player.centerX=345
-        else:
-            Win.visible = True
+        Win.visible = True
 
 cmu_graphics.run()
