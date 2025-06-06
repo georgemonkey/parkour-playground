@@ -1,4 +1,5 @@
 from cmu_graphics import *
+import random
 
 app.background = gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
 app.stepsPerSecond = 60
@@ -21,6 +22,12 @@ Finish = Rect(360,180,40,120,fill='gold')
 FinishLine = Rect(360,180,40,10,fill='green')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
+
+
+for i in range(10,20):
+    x=(randrange(10,270)+15)
+    y=randrange(10,100)
+    Stars=Star(x,y,5,5)
 
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill='white', border='black')
 
