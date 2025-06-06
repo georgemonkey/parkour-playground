@@ -1,4 +1,5 @@
 from cmu_graphics import *
+import random
 
 app.background = rgb(244, 244, 244)
 app.stepsPerSecond = 60
@@ -21,6 +22,12 @@ Finish = Rect(360,180,40,120,fill=rgb(209, 209, 209))
 FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
+
+
+for i in range(10,20):
+    x=(randrange(10,270)+15)
+    y=randrange(10,100)
+    Stars=Star(x,y,5,5)
 
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 
