@@ -18,6 +18,7 @@ Obs2 = Rect(200,200,40,100,fill='yellow')
 Obs3 = Rect(280,200,40,100,fill='yellow')
 Obs4 = Rect(280,0,40,140,fill='yellow')
 Finish = Rect(360,180,40,120,fill='gold')
+FinishLine = Rect(360,180,40,10,fill='green')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
 
@@ -99,7 +100,7 @@ def onStep():
         player_velocity_y = 0
         is_jumping = False
 
-    for obs in [Start, Obs1, Obs2, Obs3, Obs4]:
+    for obs in [Start, Obs1, Obs2, Obs3, Obs4, Finish]:
         checkCollision(obs)
 
     if Player.top < 0:
