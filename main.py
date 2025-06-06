@@ -23,7 +23,6 @@ drawGrid()
 
 Start = Rect(0,160,60,140,fill='gold')
 Obs1=Rect(120,220,40,80,fill='yellow')
-Obs11=Line(120,220,160,220,fill='yellow')
 Obs2=Rect(200,200,40,100,fill='yellow')
 Obs3=Rect(280,200,40,100,fill='yellow')
 Obs4=Rect(280,0,40,140,fill='yellow')
@@ -69,6 +68,10 @@ def onKeyPress(key):
     elif key == 'right':
         move_right = True
     
+    if Player.hitsShape(Obs1):
+        if Player.centerX>105 and Player.centerX<175:
+            Player.centerY=245
+    
 
 def onKeyRelease(key):
     global move_left, move_right
@@ -106,10 +109,20 @@ def onStep():
         Player.centerX=15
     
     if Player.hitsShape(Obs1):
-        if Player.hitsShape(Obs11):
-            Player.centerY=195
-        elif Player.centerX<120:
+        if Player.centerX<120:
             Player.centerX=105
         elif Player.centerX>160:
-            Player.centerX=175             
+            Player.centerX=175 
+
+    if Player.hitsShape(Obs2):
+        if Player.centerX<200:
+            Player.centerX=185
+        elif Player.centerX>240:
+            Player.centerX=255  
+    
+    if Player.hitsShape(Obs3):
+        if Player.centerX<280:
+            Player.centerX=265
+        elif Player.centerX>320:
+            Player.centerX=335
 cmu_graphics.run()
