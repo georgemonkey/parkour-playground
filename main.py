@@ -68,9 +68,6 @@ def onKeyPress(key):
     elif key == 'right':
         move_right = True
     
-    if Player.hitsShape(Obs1):
-        if Player.centerX>105 and Player.centerX<175:
-            Player.centerY=245
     
 
 def onKeyRelease(key):
@@ -97,7 +94,10 @@ def onStep():
         is_jumping = False
 
     if Player.hitsShape(Finish):
-        Win.visible = True
+        if Player.centerX<360:
+            Player.centerX=345
+        else:
+            Win.visible = True
     
     if Player.bottom>300:
        Player.centerY=325
@@ -107,6 +107,10 @@ def onStep():
         Player.centerX=385
     if Player.left<0:
         Player.centerX=15
+    
+    if Player.hitsShape(Start):
+        if Player.centerX>60:
+            Player.centerX=75
     
     if Player.hitsShape(Obs1):
         if Player.centerX<120:
@@ -125,4 +129,5 @@ def onStep():
             Player.centerX=265
         elif Player.centerX>320:
             Player.centerX=335
+    
 cmu_graphics.run()
