@@ -1,6 +1,6 @@
 from cmu_graphics import *
 
-app.background = gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
+app.background = rgb(244, 244, 244)
 app.stepsPerSecond = 60
 
 gravity = 0.5 
@@ -12,19 +12,20 @@ move_right = False
 move_speed = 4
 ground_y = 300
 
-Start = Rect(0,160,60,140,fill='gold')
-Obs1 = Rect(120,220,40,80,fill='yellow')
-Obs2 = Rect(200,200,40,100,fill='yellow')
-Obs3 = Rect(280,160,40,140,fill='yellow')
-Obs4 = Rect(280,0,40,100,fill='yellow')
-Finish = Rect(360,180,40,120,fill='gold')
-FinishLine = Rect(360,180,40,10,fill='green')
-Rect(0,320,400,80,fill='green')
-Rect(0,300,400,20,fill='saddleBrown')
+Start = Rect(0,160,60,140,fill=rgb(209, 209, 209))
+Obs1 = Rect(120,220,40,80,fill=rgb(58, 58, 58))
+Obs2 = Rect(200,200,40,100,fill=rgb(58, 58, 58))
+Obs3 = Rect(280,160,40,140,fill=rgb(58, 58, 58))
+Obs4 = Rect(280,0,40,100,fill=rgb(58, 58, 58))
+Finish = Rect(360,180,40,120,fill=rgb(209, 209, 209))
+FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
+Rect(0,320,400,80,fill=rgb(209, 209, 209))
+Rect(0,300,400,20,fill=rgb(209, 209, 209))
 
-Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill='white', border='black')
+Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 
-Background1 = Rect(0,0,400,400,fill=gradient('yellow','orange','darkOrange',start='top'))
+
+Background1 = Rect(0,0,400,400,fill=rgb(244, 244, 244))
 Win = Label('You Win!',200,200,size=50,visible=False)
 Loose = Label('You Lose',200,200,size=40,visible=False)
 Again = Label('Press "p" to play again',200,250,size=25,visible=False)
@@ -34,6 +35,8 @@ Start2 = Label('Press "r" to reset',200,170,size=20)
 Start3 = Label('Do the parkour and run from the tsunami',200,200,size=20)
 Start4 = Label('Reach the finish line to finish the level, complete 3 levels to win',200,230,size=13)
 Start5 = Label('Press "s" to start',200,260,size=20)
+
+
 
 def onKeyPress(key):
     global player_velocity_y, is_jumping, move_left, move_right
