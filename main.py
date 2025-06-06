@@ -112,6 +112,9 @@ def onStep():
         Player.right = 400
 
     if Player.hitsShape(Finish):
-        Win.visible = True
+        if Player.centerX<360:
+            Player.centerX=345
+        else:
+            Win.visible = True
 
 cmu_graphics.run()
