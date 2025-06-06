@@ -3,7 +3,7 @@ from cmu_graphics import *
 app.background = gradient(rgb(255,69,0),rgb(255,90,0),rgb(255,110,0),rgb(255,130,0),rgb(255,140,0),start='left')
 app.stepsPerSecond = 60
 
-gravity = 0.5
+gravity = 0.5 
 jump_velocity = -10
 player_velocity_y = 0
 is_jumping = False
@@ -12,20 +12,11 @@ move_right = False
 move_speed = 4
 ground_y = 300
 
-def drawGrid(spacing=50, color='lightGray'):
-    for x in range(0, app.width, spacing):
-        Line(x, 0, x, app.height, fill=color)
-    for y in range(0, app.height, spacing):
-        Line(0, y, app.width, y, fill=color)
-drawGrid()
-
-
-
 Start = Rect(0,160,60,140,fill='gold')
-Obs1=Rect(120,220,40,80,fill='yellow')
-Obs2=Rect(200,200,40,100,fill='yellow')
-Obs3=Rect(280,200,40,100,fill='yellow')
-Obs4=Rect(280,0,40,140,fill='yellow')
+Obs1 = Rect(120,220,40,80,fill='yellow')
+Obs2 = Rect(200,200,40,100,fill='yellow')
+Obs3 = Rect(280,200,40,100,fill='yellow')
+Obs4 = Rect(280,0,40,140,fill='yellow')
 Finish = Rect(360,180,40,120,fill='gold')
 Rect(0,320,400,80,fill='green')
 Rect(0,300,400,20,fill='saddleBrown')
@@ -67,8 +58,6 @@ def onKeyPress(key):
         move_left = True
     elif key == 'right':
         move_right = True
-    
-    
 
 def onKeyRelease(key):
     global move_left, move_right
@@ -76,6 +65,23 @@ def onKeyRelease(key):
         move_left = False
     elif key == 'right':
         move_right = False
+
+def checkCollision(obs):
+    global player_velocity_y, is_jumping
+
+    if Player.bottom <= obs.top + player_velocity_y and Player.right > obs.left and Player.left < obs.right:
+        if Player.bottom + player_velocity_y >= obs.top:
+            Player.bottom = obs.top
+            player_velocity_y = 0
+            is_jumping = False
+    elif Player.top >= obs.bottom and Player.right > obs.left and Player.left < obs.right:
+        if Player.top + player_velocity_y <= obs.bottom:
+            Player.top = obs.bottom
+            player_velocity_y = 0
+    elif Player.right >= obs.left and Player.left < obs.left and Player.bottom > obs.top and Player.top < obs.bottom:
+        Player.right = obs.left
+    elif Player.left <= obs.right and Player.right > obs.right and Player.bottom > obs.top and Player.top < obs.bottom:
+        Player.left = obs.right
 
 def onStep():
     global player_velocity_y, is_jumping
@@ -93,41 +99,19 @@ def onStep():
         player_velocity_y = 0
         is_jumping = False
 
-    if Player.hitsShape(Finish):
-        if Player.centerX<360:
-            Player.centerX=345
-        else:
-            Win.visible = True
-    
-    if Player.bottom>300:
-       Player.centerY=325
-    if Player.top<0:
-        Player.centerY=25
-    if Player.right>400:
-        Player.centerX=385
-    if Player.left<0:
-        Player.centerX=15
-    
-    if Player.hitsShape(Start):
-        if Player.centerX>60:
-            Player.centerX=75
-    
-    if Player.hitsShape(Obs1):
-        if Player.centerX<120:
-            Player.centerX=105
-        elif Player.centerX>160:
-            Player.centerX=175 
+    for obs in [Start, Obs1, Obs2, Obs3, Obs4]:
+        checkCollision(obs)
 
-    if Player.hitsShape(Obs2):
-        if Player.centerX<200:
-            Player.centerX=185
-        elif Player.centerX>240:
-            Player.centerX=255  
-    
-    if Player.hitsShape(Obs3):
-        if Player.centerX<280:
-            Player.centerX=265
-        elif Player.centerX>320:
-            Player.centerX=335
-    
+    if Player.top < 0:
+        Player.top = 0
+    if Player.bottom > 320:
+        Player.bottom = 320
+    if Player.left < 0:
+        Player.left = 0
+    if Player.right > 400:
+        Player.right = 400
+
+    if Player.hitsShape(Finish):
+        Win.visible = True
+
 cmu_graphics.run()
