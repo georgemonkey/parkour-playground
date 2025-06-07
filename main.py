@@ -3,7 +3,7 @@ import random
 
 app.background = rgb(244, 244, 244)
 app.stepsPerSecond = 60
-
+#gravity vars
 gravity = 0.5 
 jump_velocity = -10
 player_velocity_y = 0
@@ -12,7 +12,7 @@ move_left = False
 move_right = False
 move_speed = 4
 ground_y = 300
-
+#game objects
 Start = Rect(0,160,60,140,fill=rgb(209, 209, 209))
 Obs1 = Rect(120,220,40,80,fill=rgb(58, 58, 58))
 Obs2 = Rect(200,200,40,100,fill=rgb(58, 58, 58))
@@ -23,7 +23,7 @@ FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
 
-
+#star generation
 for i in range(10,20):
     x=(randrange(10,270)+15)
     y=randrange(10,100)
@@ -31,7 +31,7 @@ for i in range(10,20):
 
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 
-
+#instructions
 Background1 = Rect(0,0,400,400,fill=rgb(244, 244, 244))
 Win = Label('You Win!',200,200,size=50,visible=False)
 Loose = Label('You Lose',200,200,size=40,visible=False)
