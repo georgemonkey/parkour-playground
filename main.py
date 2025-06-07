@@ -3,6 +3,8 @@ import random
 
 app.background = rgb(244, 244, 244)
 app.stepsPerSecond = 60
+dark_gray = rgb(60, 60, 60)      
+medium_gray = rgb(90, 90, 90)     
 #gravity vars
 gravity = 0.5 
 jump_velocity = -10
@@ -22,6 +24,7 @@ Finish = Rect(360,180,40,120,fill=rgb(209, 209, 209))
 FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
+resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
 
 #star generation
 for i in range(10,20):
@@ -31,24 +34,31 @@ for i in range(10,20):
 
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 
-#instructions
-Background1 = Rect(0,0,400,400,fill=rgb(244, 244, 244))
-Win = Label('You Win!',200,200,size=50,visible=False)
-Loose = Label('You Lose',200,200,size=40,visible=False)
-Again = Label('Press "p" to play again',200,250,size=25,visible=False)
 
-Start1 = Label('Use arrow keys and spacebar to move',200,140,size=15)
-Start2 = Label('Press "r" to reset',200,170,size=20)
-Start3 = Label('Do the parkour and run from the tsunami',200,200,size=20)
-Start4 = Label('Reach the finish line to finish the level, complete 3 levels to win',200,230,size=13)
-Start5 = Label('Press "s" to start',200,260,size=20)
+
+
+
+#instructions
+Background1 = Rect(0, 0, 400, 400, fill=rgb(244, 244, 244))
+Start1 = Label('← → to move', 200, 120, size=18, fill=dark_gray)
+Start2 = Label('space to jump', 200, 150, size=18, fill=dark_gray)
+Start4 = Label('press "r" to reset', 200, 180, size=18, fill=dark_gray)
+Start3 = Label('press "s" to start', 200, 210, size=18, fill=rgb(18, 18, 17))
+Start5 = Label('reach the finish before the tsunami', 200, 250, size=14, fill=medium_gray)
+
+
+#es
+Win = Label('you win', 200, 125, size=45, fill=rgb(40, 160, 80), visible=False)
+Loose = Label('you lose', 200, 125, size=45, fill=rgb(180, 50, 50), visible=False)
+Again = Label('press "p" to play again', 200, 170, size=18, fill=dark_gray, visible=False)
 
 
 
 def onKeyPress(key):
     global player_velocity_y, is_jumping, move_left, move_right
 
-    if key in ['s', 'r', 'p']:
+    if key in ['s','p']:
+        
         Start1.visible = False
         Start2.visible = False
         Start3.visible = False
