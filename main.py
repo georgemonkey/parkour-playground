@@ -49,14 +49,14 @@ Start5 = Label('Press "s" to start',200,260,size=20)
 def draw_tsunami():
     pre_x=50
     pre_y=0
-    points=[50,0]
+    points=[]
     for y in range(0,405,5):
         x=50+20*math.sin((y-50)/30)
+        points.extend([x,y])
         Line(pre_x,pre_y,x,y,lineWidth=2,fill='skyBlue')
         pre_x=x
         pre_y=y
-        points.extend([x,y])
-    points.extend([x, y, 0, 400, 0, 0])
+    points.extend([0, 400, 0, 0])
     Polygon(*points,fill='skyBlue')
 
 
