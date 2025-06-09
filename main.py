@@ -57,7 +57,7 @@ def draw_tsunami():
         pre_y=y
         points.extend([x,y])
     points.extend([x, y, 0, 400, 0, 0])
-    Polygon(*points,fill='blue')
+    Polygon(*points,fill='skyBlue')
 
 
 def onKeyPress(key):
