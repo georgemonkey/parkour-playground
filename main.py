@@ -46,6 +46,10 @@ Start3 = Label('Do the parkour and run from the tsunami',200,200,size=20)
 Start4 = Label('Reach the finish line to finish the level, complete 3 levels to win',200,230,size=13)
 Start5 = Label('Press "s" to start',200,260,size=20)
 
+app.timer=0
+app.step_count=0
+app.previous_label=None
+
 def draw_tsunami():
     pre_x=50
     pre_y=0
@@ -64,6 +68,8 @@ def onKeyPress(key):
     global player_velocity_y, is_jumping, move_left, move_right
 
     if key in ['s','p']:
+
+        app.timer=0
         
         Start1.visible = False
         Start2.visible = False
@@ -78,7 +84,6 @@ def onKeyPress(key):
         Again.visible = False
         Background1.visible = False
         draw_tsunami()
-
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
         is_jumping = True
@@ -141,6 +146,15 @@ def onStep():
 
     if Player.hitsShape(Finish):
         Win.visible = True
+    
+    app.step_count+=1
+    if app.step_count==60:
+        app.timer+=1
+        app.step_count=0
+        if app.previous_label:
+            app.previous_label.visible=False
+        app.previous_label=Label(app.timer,30,30)
+
 
 
 
