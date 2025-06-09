@@ -46,6 +46,15 @@ Start3 = Label('Do the parkour and run from the tsunami',200,200,size=20)
 Start4 = Label('Reach the finish line to finish the level, complete 3 levels to win',200,230,size=13)
 Start5 = Label('Press "s" to start',200,260,size=20)
 
+def draw_tsunami():
+    pre_x=50
+    pre_y=0
+    for y in range(0,400,10):
+        x=50+20*math.sin((y-50)/30)
+        Line(pre_x,pre_y,x,y,lineWidth=2,fill='skyBlue')
+        pre_x=x
+        pre_y=y
+
 
 
 def onKeyPress(key):
