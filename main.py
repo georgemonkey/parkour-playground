@@ -48,6 +48,26 @@ app.previous_label=None
 app.pre_label=0
 
 # stars generation
+s1=Rect(0,0,20,100,visible=False)
+s2=Rect(20,0,20,100,visible=False)
+s3=Rect(40,0,20,100,visible=False)
+s4=Rect(60,0,20,100,visible=False)
+s5=Rect(80,0,20,100,visible=False)
+s6=Rect(100,0,20,100,visible=False)
+s7=Rect(120,0,20,100,visible=False)
+s8=Rect(140,0,20,100,visible=False)
+s9=Rect(160,0,20,100,visible=False)
+s10=Rect(180,0,20,100,visible=False)
+s11=Rect(200,0,20,100,visible=False)
+s12=Rect(220,0,20,100,visible=False)
+s13=Rect(240,0,20,100,visible=False)
+s14=Rect(260,0,20,100,visible=False)
+s15=Rect(280,0,20,100,visible=False)
+s16=Rect(300,0,20,100,visible=False)
+s17=Rect(320,0,20,100,visible=False)
+s18=Rect(340,0,20,100,visible=False)
+s19=Rect(360,0,20,100,visible=False)
+s20=Rect(380,0,20,100,visible=False)
 for i in range(10,20):
     x = (random.randrange(10,390)+15)
     y = random.randrange(10,150)
