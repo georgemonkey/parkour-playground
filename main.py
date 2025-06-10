@@ -35,9 +35,12 @@ def increaseScore(points=1):
     scoreboard.value = f'score: {score}'
 def decreaseScore(points=1):
     global score
-    score -= points
-    scoreboard.value = f'score: {score}'
-
+    if score<=0:
+        score=0
+    else:
+        score -= points
+        scoreboard.value = f'score: {score}'
+  
 #Timer
 app.timer=-1
 app.step_count=0
@@ -46,9 +49,9 @@ app.pre_label=0
 
 # stars generation
 for i in range(10,20):
-    x = (random.randrange(10,270)+15)
-    y = random.randrange(10,100)
-    Star(x,y,5,5)
+    x = (random.randrange(10,390)+15)
+    y = random.randrange(10,150)
+    Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left'))
 
 #Tsunami
 app.xt=50
@@ -208,7 +211,7 @@ def onKeyPress(key):
         Win.visible = False
         Loose.visible = False
         Again.visible = False
-        app.timer=-1
+        app.timer=0
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
