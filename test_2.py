@@ -1,5 +1,7 @@
+#test_2.py
 from cmu_graphics import *
 import random
+import math
 
 app.background = rgb(244, 244, 244)
 app.stepsPerSecond = 60
@@ -24,7 +26,7 @@ FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
 resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
-score = 1
+score = 0
 
 scoreboard = Label(f'score: {score}', 340, 30, size=24, fill=rgb(255, 105, 180), bold=True)
 #ensures default increasion is 1 n not 0 
@@ -36,14 +38,33 @@ def decreaseScore(points=1):
     global score
     score -= points
     scoreboard.value = f'score: {score}'
-time = 30000
-timer =  Label(f'time {time}', 60, 30, size=24, fill=rgb(255, 105, 180), bold=True)
+
+#Timer
+app.timer=-1
+app.step_count=0
+app.previous_label=None
 
 # stars generation
 for i in range(10,20):
     x = (random.randrange(10,270)+15)
     y = random.randrange(10,100)
     Star(x,y,5,5)
+
+#Tsunami
+tsunami_group=Group()
+def draw_tsunami():
+    tsunami_group.clear()
+    pre_x=50
+    pre_y=0
+    points=[]
+    for y in range(0,405,5):
+        x=50+20*math.sin((y-50)/30)
+        points.extend([x,y])
+        tsunami_group.add(Line(pre_x,pre_y,x,y,lineWidth=2,fill='skyBlue'))
+        pre_x=x
+        pre_y=y
+    points.extend([0, 400, 0, 0])
+    tsunami_group.add(Polygon(*points,fill='skyBlue'))
 
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 #game objects
@@ -110,9 +131,7 @@ def checkCollision(obs):
         Player.left = obs.right
 
 def onStep():
-    global time
-    time -=1
-    timer.value = time
+    
     global player_velocity_y, is_jumping
 
     player_velocity_y += gravity
@@ -143,10 +162,26 @@ def onStep():
         Player.right = 400
 
     if Player.hitsShape(FinishLine):
+        app.timer=0
+        tsunami_group.clear()
         increaseScore()
         generateLevel()
+    
+#Increasing timer
+    app.step_count+=1
+    if app.step_count==60:
+        app.timer+=1
+        app.step_count=0
+        if app.previous_label:
+            app.previous_label.visible=False
+        app.previous_label=Label(app.timer,30,30)
+
+#Drawing the tsunami
+    if app.timer==3:
+        draw_tsunami()
 
 def onKeyPress(key):
+
     global player_velocity_y, is_jumping, move_left, move_right
 
     if key in ['s', 'p','r']:
@@ -159,6 +194,8 @@ def onKeyPress(key):
         Win.visible = False
         Loose.visible = False
         Again.visible = False
+        app.timer=-1
+        tsunami_group.clear()
         decreaseScore()
         generateLevel()
 
