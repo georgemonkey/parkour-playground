@@ -25,7 +25,7 @@ Finish = Rect(360,180,40,120,fill=rgb(209, 209, 209))
 FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
-resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
+resetreminder = Label('press "r" to reset', 200, 350, size=18, fill=rgb(18, 18, 17))
 #star generation
 for i in range(10,20):
     x=(randrange(10,250)+15)
@@ -67,7 +67,7 @@ def draw_tsunami():
 def onKeyPress(key):
     global player_velocity_y, is_jumping, move_left, move_right
 
-    if key in ['s','p']:
+    if key in ['s','p','r']:
 
         app.timer=0
         
@@ -153,7 +153,7 @@ def onStep():
         app.step_count=0
         if app.previous_label:
             app.previous_label.visible=False
-        app.previous_label=Label(app.timer,30,30)
+        app.previous_label=Label(app.timer,370,370,size=25)
 
 
 
