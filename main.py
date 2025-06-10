@@ -207,7 +207,7 @@ def onKeyPress(key):
         Win.visible = False
         Loose.visible = False
         Again.visible = False
-        app.timer=-1
+        app.timer=0
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
