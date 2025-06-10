@@ -147,10 +147,11 @@ def onStep():
         Player.bottom = ground_y
         player_velocity_y = 0
         is_jumping = False
-
+###ADD COLLSIONS HERE
     for obs in obstacles:
         checkCollision(obs)
-
+        checkCollision(Start)
+        checkCollision(Finish)
     if Player.top < 0:
         Player.top = 0
     if Player.bottom > 320:
