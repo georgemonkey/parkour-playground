@@ -23,7 +23,7 @@ Finish = Rect(360,180,40,120,fill=rgb(209, 209, 209))
 FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
-resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
+resetreminder = Label('press "r" to reset', 200, 350, size=18, fill=rgb(18, 18, 17))
 score = 1
 
 scoreboard = Label(f'score: {score}', 340, 30, size=24, fill=rgb(255, 105, 180), bold=True)
