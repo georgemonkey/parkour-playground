@@ -181,7 +181,7 @@ def onStep():
             app.previous_label=Label(app.timer,30,30)
 
 #Drawing the tsunami
-    if app.timer>=3:
+    if app.timer>=2:
         draw_tsunami(app.xt)
         app.xt+=1
 
