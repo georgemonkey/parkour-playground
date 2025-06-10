@@ -27,7 +27,7 @@ Rect(0,300,400,20,fill=rgb(209, 209, 209))
 resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
 score = 1
 
-scoreboard = Label(f'score: {score}', 340, 30, size=24, fill=rgb(255, 105, 180), bold=True)
+scoreboard = Label(f'score: {score}', 250, 380, size=24, bold=True)
 #ensures default increasion is 1 n not 0 
 def increaseScore(points=1):
     global score
@@ -178,7 +178,7 @@ def onStep():
         if app.previous_label:
             app.previous_label.visible=False
         if app.pre_label==1:
-            app.previous_label=Label(app.timer,30,30)
+            app.previous_label=Label(app.timer,370,380,size = 25)
 
 #Drawing the tsunami
     if app.timer>=2:
