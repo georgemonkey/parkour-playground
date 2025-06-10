@@ -26,7 +26,7 @@ FinishLine = Rect(360,180,40,10,fill=rgb(255, 215, 0))
 Rect(0,320,400,80,fill=rgb(209, 209, 209))
 Rect(0,300,400,20,fill=rgb(209, 209, 209))
 resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
-score = 0
+score = 1
 
 scoreboard = Label(f'score: {score}', 340, 30, size=24, fill=rgb(255, 105, 180), bold=True)
 #ensures default increasion is 1 n not 0 
@@ -43,6 +43,7 @@ def decreaseScore(points=1):
 app.timer=-1
 app.step_count=0
 app.previous_label=None
+app.pre_label=0
 
 # stars generation
 for i in range(10,20):
@@ -51,14 +52,15 @@ for i in range(10,20):
     Star(x,y,5,5)
 
 #Tsunami
+app.xt=50
 tsunami_group=Group()
-def draw_tsunami():
+def draw_tsunami(xt):
     tsunami_group.clear()
-    pre_x=50
+    pre_x=app.xt
     pre_y=0
     points=[]
     for y in range(0,405,5):
-        x=50+20*math.sin((y-50)/30)
+        x=app.xt+20*math.sin((y-50)/30)
         points.extend([x,y])
         tsunami_group.add(Line(pre_x,pre_y,x,y,lineWidth=2,fill='skyBlue'))
         pre_x=x
@@ -164,6 +166,7 @@ def onStep():
     if Player.hitsShape(FinishLine):
         app.timer=0
         tsunami_group.clear()
+        app.xt=50
         increaseScore()
         generateLevel()
     
@@ -174,11 +177,22 @@ def onStep():
         app.step_count=0
         if app.previous_label:
             app.previous_label.visible=False
-        app.previous_label=Label(app.timer,30,30)
+        if app.pre_label==1:
+            app.previous_label=Label(app.timer,30,30)
 
 #Drawing the tsunami
-    if app.timer==3:
-        draw_tsunami()
+    if app.timer>=3:
+        draw_tsunami(app.xt)
+        app.xt+=1
+
+#Player losing upon hitting tsuanmi
+    if tsunami_group.containsShape(Player):
+        app.timer=0
+        tsunami_group.clear()
+        app.xt=50
+        decreaseScore()
+        generateLevel()
+
 
 def onKeyPress(key):
 
@@ -198,6 +212,7 @@ def onKeyPress(key):
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
+        app.pre_label=1
 
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
