@@ -221,8 +221,8 @@ def onStep():
             app.t_timer+=1
             if app.timer==0:
                 Again.visible=True
-                Label('Your score is' + str(score),200,250,size=25,fill=dark_gray,visible=False)
                 Blank.visible=True
+                app.play_scor=Label('Your score is: ' + str(score),200,250,size=25,fill=dark_gray)
                 app.running=False
             if app.previous_label:
                 app.previous_label.visible=False
@@ -270,7 +270,8 @@ def onKeyPress(key):
         Blank.visible=False
         global score
         score=0
-        
+        scoreboard.value = f'score: {score}'
+        app.play_score.visible=False
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
         is_jumping = True
