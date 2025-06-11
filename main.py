@@ -2,6 +2,7 @@ from cmu_graphics import *
 import random
 import math
 
+
 app.background = rgb(244, 244, 244)
 app.running=True
 app.stepsPerSecond = 60
@@ -120,9 +121,8 @@ Start4 = Label('press "r" to reset', 200, 180, size=18, fill=dark_gray)
 Start3 = Label('press "s" to start', 200, 210, size=18, fill=rgb(18, 18, 17))
 Start5 = Label('reach the finish before the tsunami', 200, 250, size=14, fill=medium_gray)
 #Game ending
-Again = Label('press "p" to play again', 200, 150, size=25, fill=dark_gray, visible=False)
-Play_Scor=Label('Your score is' + str(score),200,250,size=25,fill=dark_gray,visible=False)
 Blank=Rect(0,0,400,400,fill='white',visible=False)
+Again = Label('press "p" to play again', 200, 150, size=25, fill=dark_gray, visible=False)
 #using 2d list from mr browns entry task!!!
 obstacles = []
 #level generation
@@ -219,18 +219,18 @@ def onStep():
         app.step_count+=1
         if app.step_count==60:
             app.t_timer+=1
+            if app.timer==0:
+                Again.visible=True
+                Label('Your score is' + str(score),200,250,size=25,fill=dark_gray,visible=False)
+                Blank.visible=True
+                app.running=False
             if app.previous_label:
                 app.previous_label.visible=False
             if app.pre_label==1:
                 app.previous_label=Label(app.timer,370,380,size = 25)
             if app.timer!=0:
                 app.timer-=1
-                app.step_count=0
-            if app.timer==0:
-                Again.visible=True
-                Play_Scor.visible=True
-                Blank.visible=True
-                app.running=False                
+                app.step_count=0              
 
     #Drawing the tsunami
         if app.t_timer>=2:
@@ -259,7 +259,6 @@ def onKeyPress(key):
         Start5.visible = False
         Background1.visible = False
         Again.visible = False
-        Play_Scor.visible=False
         app.t_timer=0
         tsunami_group.clear()
         decreaseScore()
@@ -268,6 +267,9 @@ def onKeyPress(key):
         star_gen()
         app.running=True
         app.timer=15
+        Blank.visible=False
+        global score
+        score=0
         
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
