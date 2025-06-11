@@ -112,6 +112,15 @@ def draw_tsunami(xt):
     points.extend([0, 400, 0, 0])
     tsunami_group.add(Polygon(*points,fill='skyBlue'))
 
+#Play Again
+Again_Group=Group()
+def Play_Again():
+    Again_Group.clear()
+    Again_Group.add(Rect(0,0,400,400,fill='white'))
+    Again_Group.add(Label('press "p" to play again', 200, 150, size=25, fill=dark_gray))
+    Again_Group.add(Label('Your score is: ' + str(score),200,250,size=25,fill=dark_gray))
+    app.running=False
+
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 #game objects
 Background1 = Rect(0, 0, 400, 400, fill=rgb(244, 244, 244))
@@ -120,9 +129,6 @@ Start2 = Label('space to jump', 200, 150, size=18, fill=dark_gray)
 Start4 = Label('press "r" to reset', 200, 180, size=18, fill=dark_gray)
 Start3 = Label('press "s" to start', 200, 210, size=18, fill=rgb(18, 18, 17))
 Start5 = Label('reach the finish before the tsunami', 200, 250, size=14, fill=medium_gray)
-#Game ending
-Blank=Rect(0,0,400,400,fill='white',visible=False)
-Again = Label('press "p" to play again', 200, 150, size=25, fill=dark_gray, visible=False)
 #using 2d list from mr browns entry task!!!
 obstacles = []
 #level generation
@@ -220,10 +226,7 @@ def onStep():
         if app.step_count==60:
             app.t_timer+=1
             if app.timer==0:
-                Again.visible=True
-                Blank.visible=True
-                app.play_scor=Label('Your score is: ' + str(score),200,250,size=25,fill=dark_gray)
-                app.running=False
+                Play_Again()
             if app.previous_label:
                 app.previous_label.visible=False
             if app.pre_label==1:
@@ -258,7 +261,7 @@ def onKeyPress(key):
         Start4.visible = False
         Start5.visible = False
         Background1.visible = False
-        Again.visible = False
+        Again_Group.clear()
         app.t_timer=0
         tsunami_group.clear()
         decreaseScore()
@@ -267,11 +270,10 @@ def onKeyPress(key):
         star_gen()
         app.running=True
         app.timer=15
-        Blank.visible=False
         global score
         score=0
         scoreboard.value = f'score: {score}'
-        app.play_score.visible=False
+
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
         is_jumping = True
