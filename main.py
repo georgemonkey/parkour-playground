@@ -3,6 +3,7 @@ import random
 import math
 
 app.background = rgb(244, 244, 244)
+app.running=True
 app.stepsPerSecond = 60
 dark_gray = rgb(60, 60, 60)      
 medium_gray = rgb(90, 90, 90)     
@@ -42,58 +43,60 @@ def decreaseScore(points=1):
         scoreboard.value = f'score: {score}'
   
 #Timer
-app.timer=-1
+app.timer=15
 app.step_count=0
 app.previous_label=None
 app.pre_label=0
 
 # stars generation
+star_group=Group()
 def star_gen():
-    app.star_group=Group()
+    star_group.clear()
     for i in range(1,2):
         x = (random.randrange(10,40))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(50,80))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(90,120))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(130,160))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(170,200))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(210,240))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(250,280))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(290,320))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(330,360))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
     for i in range(1,2):
         x = (random.randrange(370,390))
         y = random.randrange(10,100)
-        app.star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
+        star_group.add(Star(x,y,8,5,fill=gradient(rgb(128,128,128),rgb(105,105,105),rgb(105,105,105),rgb(80,80,80),rgb(0,0,0),rgb(0,0,0),start='left')))
 
 #Tsunami
 app.xt=50
 tsunami_group=Group()
+app.t_timer=0
 def draw_tsunami(xt):
     tsunami_group.clear()
     pre_x=app.xt
@@ -116,10 +119,10 @@ Start2 = Label('space to jump', 200, 150, size=18, fill=dark_gray)
 Start4 = Label('press "r" to reset', 200, 180, size=18, fill=dark_gray)
 Start3 = Label('press "s" to start', 200, 210, size=18, fill=rgb(18, 18, 17))
 Start5 = Label('reach the finish before the tsunami', 200, 250, size=14, fill=medium_gray)
-#es
-Win = Label('you win', 200, 125, size=45, fill=rgb(40, 160, 80), visible=False)
-Loose = Label('you lose', 200, 125, size=45, fill=rgb(180, 50, 50), visible=False)
-Again = Label('press "p" to play again', 200, 170, size=18, fill=dark_gray, visible=False)
+#Game ending
+Again = Label('press "p" to play again', 200, 150, size=25, fill=dark_gray, visible=False)
+Play_Scor=Label('Your score is' + str(score),200,250,size=25,fill=dark_gray,visible=False)
+Blank=Rect(0,0,400,400,fill='white',visible=False)
 #using 2d list from mr browns entry task!!!
 obstacles = []
 #level generation
@@ -173,70 +176,75 @@ def checkCollision(obs):
         Player.left = obs.right
 
 def onStep():
-    
-    global player_velocity_y, is_jumping
+    if app.running==True:
+        global player_velocity_y, is_jumping
 
-    player_velocity_y += gravity
-    Player.centerY += player_velocity_y
+        player_velocity_y += gravity
+        Player.centerY += player_velocity_y
 
-    if move_left:
-        Player.centerX -= move_speed
-    if move_right:
-        Player.centerX += move_speed
+        if move_left:
+            Player.centerX -= move_speed
+        if move_right:
+            Player.centerX += move_speed
 
-    if Player.bottom >= ground_y:
-        Player.bottom = ground_y
-        player_velocity_y = 0
-        is_jumping = False
-###ADD COLLSIONS HERE
-    for obs in obstacles:
-        checkCollision(obs)
-        checkCollision(Start)
-        checkCollision(Finish)
-    if Player.top < 0:
-        Player.top = 0
-    if Player.bottom > 320:
-        Player.bottom = 320
-        is_jumping = False
-        player_velocity_y = 0
-    if Player.left < 0:
-        Player.left = 0
-    if Player.right > 400:
-        Player.right = 400
+        if Player.bottom >= ground_y:
+            Player.bottom = ground_y
+            player_velocity_y = 0
+            is_jumping = False
+    ###ADD COLLSIONS HERE
+        for obs in obstacles:
+            checkCollision(obs)
+            checkCollision(Start)
+            checkCollision(Finish)
+        if Player.top < 0:
+            Player.top = 0
+        if Player.bottom > 320:
+            Player.bottom = 320
+            is_jumping = False
+            player_velocity_y = 0
+        if Player.left < 0:
+            Player.left = 0
+        if Player.right > 400:
+            Player.right = 400
 
-    if Player.hitsShape(FinishLine):
-        app.timer=0
-        tsunami_group.clear()
-        app.star_group.clear()
-        star_gen()
-        app.xt=50
-        increaseScore()
-        generateLevel()
-    
-#Increasing timer
-    app.step_count+=1
-    if app.step_count==60:
-        app.timer+=1
-        app.step_count=0
-        if app.previous_label:
-            app.previous_label.visible=False
-        if app.pre_label==1:
-            app.previous_label=Label(app.timer,370,380,size = 25)
+        if Player.hitsShape(FinishLine):
+            app.t_timer=0
+            tsunami_group.clear()
+            star_gen()
+            app.xt=50
+            increaseScore()
+            generateLevel()
+        
+    #Increasing timer
+        app.step_count+=1
+        if app.step_count==60:
+            app.t_timer+=1
+            if app.previous_label:
+                app.previous_label.visible=False
+            if app.pre_label==1:
+                app.previous_label=Label(app.timer,370,380,size = 25)
+            if app.timer!=0:
+                app.timer-=1
+                app.step_count=0
+            if app.timer==0:
+                Again.visible=True
+                Play_Scor.visible=True
+                Blank.visible=True
+                app.running=False                
 
-#Drawing the tsunami
-    if app.timer>=2:
-        draw_tsunami(app.xt)
-        app.xt+=1
+    #Drawing the tsunami
+        if app.t_timer>=2:
+            draw_tsunami(app.xt)
+            app.xt+=1
 
-#Player losing upon hitting tsuanmi
-    if tsunami_group.containsShape(Player):
-        app.timer=0
-        tsunami_group.clear()
-        app.star_group.clear()
-        star_gen()
-        app.xt=50
-        decreaseScore()
-        generateLevel()
+    #Player losing upon hitting tsuanmi
+        if tsunami_group.containsShape(Player):
+            app.t_timer=0
+            tsunami_group.clear()
+            star_gen()
+            app.xt=50
+            decreaseScore()
+            generateLevel()
 
 
 def onKeyPress(key):
@@ -250,16 +258,16 @@ def onKeyPress(key):
         Start4.visible = False
         Start5.visible = False
         Background1.visible = False
-        Win.visible = False
-        Loose.visible = False
         Again.visible = False
-        app.timer=0
+        Play_Scor.visible=False
+        app.t_timer=0
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
         app.pre_label=1
-        app.star_group.clear()
         star_gen()
+        app.running=True
+        app.timer=15
         
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
