@@ -258,6 +258,7 @@ def onKeyPress(key):
         decreaseScore()
         generateLevel()
         app.pre_label=1
+        app.star_group.clear()
         star_gen()
         
     if key == 'space' and not is_jumping:
