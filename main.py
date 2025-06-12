@@ -102,16 +102,6 @@ def draw_tsunami(xt):
     points.extend([0, 400, 0, 0])
     tsunami_group.add(Polygon(*points, fill='skyBlue'))
 
-# ---- play again screen ----
-Again_Group = Group()
-
-def Play_Again():
-    Again_Group.clear()
-    Again_Group.add(Rect(0, 0, 400, 400, fill='white'))
-    Again_Group.add(Label('press "p" to play again', 200, 150, size=25, fill=dark_gray))
-    Again_Group.add(Label('your score is: ' + str(score), 200, 250, size=25, fill=dark_gray))
-    app.running = False
-
 # ---- player and start labels ----
 Player = Rect(Start.centerX, Start.top - 25, 30, 50, fill=rgb(233, 78, 119), border='black')
 Background1 = Rect(0, 0, 400, 400, fill=rgb(244, 244, 244))
@@ -150,6 +140,7 @@ def generateLevel():
     Finish.visible = True
     FinishLine.visible = True
 
+
 # ---- collision detection ----
 def checkCollision(obs):
     global player_velocity_y, is_jumping
@@ -165,6 +156,20 @@ def checkCollision(obs):
         Player.right = obs.left
     elif (Player.left <= obs.right and Player.right > obs.right and Player.bottom > obs.top and Player.top < obs.bottom):
         Player.left = obs.right
+
+# ---- play again screen ----
+Again_Group = Group()
+
+def Play_Again():
+    Again_Group.clear()
+    Again_Group.add(Rect(0, 0, 400, 400, fill='white'))
+    Again_Group.add(Label('press "p" to play again', 200, 150, size=25, fill=dark_gray))
+    Again_Group.add(Label('your score is: ' + str(score), 200, 250, size=25, fill=dark_gray))
+    obstacles.clear()
+    Player.visible=False
+    Finish.visible=False
+    FinishLine.visible=False
+    app.running = False
 
 # ---- game step function ----
 def onStep():
@@ -256,6 +261,10 @@ def onKeyPress(key):
         score = 0
         scoreboard.value = f'score: {score}'
         app.running=True
+        app.pre_label=1
+        Player.visible=True
+        Finish.visible=True
+        FinishLine.visible=True
 
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
