@@ -3,37 +3,48 @@ import random
 import math
 
 # ---- app setup ----
+#sets game bg
 app.background = rgb(244, 244, 244)
 app.running = True
+#sets internal clock speed
 app.stepsPerSecond = 60
+#custom colours
 dark_gray = rgb(60, 60, 60)
 medium_gray = rgb(90, 90, 90)
-wins = 0
 
 # ---- tuneable settings ----
 gravity = 0.5 
+#
 jump_velocity = -10
 player_velocity_y = 0
+#checks for jumping to prevent double jump
 is_jumping = False
+#checks for lateral movement
 move_left = False
 move_right = False
+#sets overall player speed
 move_speed = 4
+#sets y lower bound location of ground
 ground_y = 300
 
 # ---- static objects and ui ----
 Start = Rect(0, 160, 60, 140, fill=rgb(209, 209, 209))
 Finish = Rect(360, 180, 40, 120, fill=rgb(209, 209, 209))
+#the gold line that counts as finishing
 FinishLine = Rect(360, 180, 40, 10, fill=rgb(255, 215, 0))
+#ground 
 Rect(0, 320, 400, 80, fill=rgb(209, 209, 209))
 Rect(0, 300, 400, 20, fill=rgb(209, 209, 209))
 resetreminder = Label('press "r" to reset', 160, 350, size=18, fill=rgb(18, 18, 17))
-score = 1
+#sets default score
+score = 0
 scoreboard = Label(f'score: {score}', 250, 380, size=24, bold=True)
 
-# ---- score functions ----
+# ---- scoring functions ----
 def increaseScore(points=1):
     global score
     score += points
+    #format
     scoreboard.value = f'score: {score}'
 
 def decreaseScore(points=1):
@@ -42,16 +53,20 @@ def decreaseScore(points=1):
         score = 0
     else:
         score -= points
+        #format
         scoreboard.value = f'score: {score}'
 
 # ---- timer ----
 app.timer = 15
 app.step_count = 0
+#previous label given to act as a signal for code to display timer label and refresh content
 app.previous_label = None
 app.pre_label = 0
 
 # ---- star generation ----
 star_group = Group()
+#stars are generated in 20 quadrants and one star is allowed in each quadrant, this allows for 
+#more consistent star generation and the spread is more even
 
 def star_gen():
     star_group.clear()
@@ -64,11 +79,16 @@ def star_gen():
         )))
 
 # ---- tsunami drawing ----
+#horizontal movement of tsunami
 app.xt = 50
+#creates a group for the objects of the tsunami
 tsunami_group = Group()
+#sets tsunami timer
 app.t_timer = 0
-
+#function for eos
 def draw_tsunami(xt):
+    #essentially continously erases then redraws a new wave for each time the func. is called
+    #function is called on onstep area
     tsunami_group.clear()
     pre_x = app.xt
     pre_y = 0
@@ -105,21 +125,24 @@ Start5 = Label('reach the finish before the tsunami', 200, 250, size=14, fill=me
 obstacles = []
 
 def generateLevel():
+    #sets obstacles to be not visible then clears all of them
     for obs in obstacles:
         obs.visible = False
     obstacles.clear()
-
+    #sets players start position as the start blocks x,y
     Player.centerX = Start.centerX
     Player.bottom = Start.top
-
+    #sets left lateral limit for generating objects
     x = 100
+    #when the x coord. is less than the finishing block it will generate between 3-4
+    #game obstacles
     while x < 320:
         height = random.randrange(40, 100)
         y = ground_y - height
         obs = Rect(x, y, 40, height, fill=rgb(58, 58, 58))
         obstacles.append(obs)
         x += random.randrange(50, 90)
-
+    #places the finishing block and ensures finish line and finish block r visible
     Finish.left = 360
     Finish.top = 180
     FinishLine.left = 360
@@ -131,21 +154,16 @@ def generateLevel():
 def checkCollision(obs):
     global player_velocity_y, is_jumping
 
-    if (Player.bottom <= obs.top + player_velocity_y and
-        Player.right > obs.left and Player.left < obs.right and
-        Player.bottom + player_velocity_y >= obs.top):
+    if (Player.bottom <= obs.top + player_velocity_y and Player.right > obs.left and Player.left < obs.right and Player.bottom + player_velocity_y >= obs.top):
         Player.bottom = obs.top
         player_velocity_y = 0
         is_jumping = False
-    elif (Player.top >= obs.bottom and Player.right > obs.left and Player.left < obs.right and
-          Player.top + player_velocity_y <= obs.bottom):
+    elif (Player.top >= obs.bottom and Player.right > obs.left and Player.left < obs.right and Player.top + player_velocity_y <= obs.bottom):
         Player.top = obs.bottom
         player_velocity_y = 0
-    elif (Player.right >= obs.left and Player.left < obs.left and
-          Player.bottom > obs.top and Player.top < obs.bottom):
+    elif (Player.right >= obs.left and Player.left < obs.left and Player.bottom > obs.top and Player.top < obs.bottom):
         Player.right = obs.left
-    elif (Player.left <= obs.right and Player.right > obs.right and
-          Player.bottom > obs.top and Player.top < obs.bottom):
+    elif (Player.left <= obs.right and Player.right > obs.right and Player.bottom > obs.top and Player.top < obs.bottom):
         Player.left = obs.right
 
 # ---- game step function ----
@@ -220,6 +238,7 @@ def onKeyPress(key):
     global player_velocity_y, is_jumping, move_left, move_right, score
 
     if key in ['s', 'p', 'r']:
+        #when one of the reset keys is pressed the game is reset n regenerated
         Start1.visible = False
         Start2.visible = False
         Start3.visible = False
@@ -248,11 +267,12 @@ def onKeyPress(key):
 
 # ---- key release controls ----
 def onKeyRelease(key):
+    #sets player to stop moving when corresponding key is let go of
     global move_left, move_right
     if key == 'left':
         move_left = False
     elif key == 'right':
         move_right = False
 
-# ---- run app ----
+#runs game
 cmu_graphics.run()
