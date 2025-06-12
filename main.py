@@ -266,13 +266,13 @@ def onKeyPress(key):
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
-        app.pre_label=1
         star_gen()
-        app.running=True
         app.timer=15
+        app.pre_label=1
         global score
         score=0
         scoreboard.value = f'score: {score}'
+        app.running=True
 
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
