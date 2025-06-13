@@ -5,7 +5,8 @@ import math
 # ---- app setup ----
 #sets game bg
 app.background = rgb(244, 244, 244)
-app.running = True
+#variable to control the onstep
+app.running = False
 #sets internal clock speed
 app.stepsPerSecond = 60
 #custom colours
@@ -14,7 +15,7 @@ medium_gray = rgb(90, 90, 90)
 
 # ---- tuneable settings ----
 gravity = 0.5 
-#
+#velocity
 jump_velocity = -10
 player_velocity_y = 0
 #checks for jumping to prevent double jump
@@ -162,20 +163,30 @@ Again_Group = Group()
 
 def Play_Again():
     Again_Group.clear()
+    #display messages showing the score and how to play again
     Again_Group.add(Rect(0, 0, 400, 400, fill='white'))
     Again_Group.add(Label('press "p" to play again', 200, 150, size=25, fill=dark_gray))
     Again_Group.add(Label('your score is: ' + str(score), 200, 250, size=25, fill=dark_gray))
+    #removes all objects
     Player.visible=False
     Finish.visible=False
     FinishLine.visible=False
     for obs in obstacles:
         obs.visible = False
     obstacles.clear()
+    #stops the onstep from running
     app.running = False
 
 # ---- game step function ----
 def onStep():
     if app.running:
+        
+        #creates the tsunami after one second
+        if app.t_timer >= 1:
+            draw_tsunami(app.xt)
+            app.xt += 2
+        
+        #players gravity
         global player_velocity_y, is_jumping
 
         player_velocity_y += gravity
@@ -191,6 +202,7 @@ def onStep():
             player_velocity_y = 0
             is_jumping = False
 
+        #checks if player collides with the obstacle
         for obs in obstacles:
             checkCollision(obs)
             checkCollision(Start)
@@ -207,6 +219,7 @@ def onStep():
         if Player.right > 400:
             Player.right = 400
 
+        #upon hitting the finish line
         if Player.hitsShape(FinishLine):
             app.t_timer = 0
             tsunami_group.clear()
@@ -215,24 +228,27 @@ def onStep():
             increaseScore()
             generateLevel()
 
+        #generates the timer in the bottom right
         app.step_count += 1
+        ##envokes every second
         if app.step_count == 60:
+            ##adds to the tsunami spawing timer each second
             app.t_timer += 1
+            ##replaces the previous timer variable with a new one each second
             if app.previous_label:
                 app.previous_label.visible = False
             if app.pre_label == 1:
                 app.previous_label = Label(app.timer, 370, 380, size=25)
+            #reduces the game timer each second
             if app.timer>0:
                 app.timer -= 1
                 app.step_count = 0
+            #once the timer hits 0, ends the game
             elif app.timer == 0:
                 Play_Again()
 
-        if app.t_timer >= 1:
-            draw_tsunami(app.xt)
-            app.xt += 2
-
-        if tsunami_group.containsShape(Player):
+        #upon the tsunami hitting the player
+        if tsunami_group.hitsShape(Player):
             app.t_timer = 0
             tsunami_group.clear()
             star_gen()
@@ -246,6 +262,7 @@ def onKeyPress(key):
 
     if key in ['s', 'p', 'r']:
         #when one of the reset keys is pressed the game is reset n regenerated
+        #removes the messages displayed
         Start1.visible = False
         Start2.visible = False
         Start3.visible = False
@@ -253,21 +270,28 @@ def onKeyPress(key):
         Start5.visible = False
         Background1.visible = False
         Again_Group.clear()
+        #clears the tsunami
         tsunami_group.clear()
+        #sets the score
         decreaseScore()
+        score = 0
+        scoreboard.value = f'score: {score}'
+        #generates the new level and stars
         generateLevel()
         star_gen()
+        #resets the variables
         app.step_count = 0
         app.t_timer = 0
         app.timer = 15
         app.pre_label=1
-        score = 0
-        scoreboard.value = f'score: {score}'
+        #makes object visible again
         Player.visible=True
         Finish.visible=True
         FinishLine.visible=True
+        #starts the onstep function
         app.running=True
 
+    #players gravity
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
         is_jumping = True
