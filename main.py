@@ -168,6 +168,9 @@ def Play_Again():
     Player.visible=False
     Finish.visible=False
     FinishLine.visible=False
+    for obs in obstacles:
+        obs.visible = False
+    obstacles.clear()
     app.running = False
 
 # ---- game step function ----
@@ -225,7 +228,7 @@ def onStep():
             elif app.timer == 0:
                 Play_Again()
 
-        if app.t_timer >= 2:
+        if app.t_timer >= 1:
             draw_tsunami(app.xt)
             app.xt += 1
 
