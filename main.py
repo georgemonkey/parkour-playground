@@ -165,7 +165,6 @@ def Play_Again():
     Again_Group.add(Rect(0, 0, 400, 400, fill='white'))
     Again_Group.add(Label('press "p" to play again', 200, 150, size=25, fill=dark_gray))
     Again_Group.add(Label('your score is: ' + str(score), 200, 250, size=25, fill=dark_gray))
-    obstacles.clear()
     Player.visible=False
     Finish.visible=False
     FinishLine.visible=False
@@ -216,15 +215,15 @@ def onStep():
         app.step_count += 1
         if app.step_count == 60:
             app.t_timer += 1
-            if app.timer == 0:
-                Play_Again()
             if app.previous_label:
                 app.previous_label.visible = False
             if app.pre_label == 1:
                 app.previous_label = Label(app.timer, 370, 380, size=25)
-            if app.timer != 0:
+            if app.timer>0:
                 app.timer -= 1
                 app.step_count = 0
+            elif app.timer == 0:
+                Play_Again()
 
         if app.t_timer >= 2:
             draw_tsunami(app.xt)
@@ -251,19 +250,20 @@ def onKeyPress(key):
         Start5.visible = False
         Background1.visible = False
         Again_Group.clear()
-        app.t_timer = 0
         tsunami_group.clear()
         decreaseScore()
         generateLevel()
         star_gen()
+        app.step_count = 0
+        app.t_timer = 0
         app.timer = 15
+        app.pre_label=1
         score = 0
         scoreboard.value = f'score: {score}'
-        app.running=True
-        app.pre_label=1
         Player.visible=True
         Finish.visible=True
         FinishLine.visible=True
+        app.running=True
 
     if key == 'space' and not is_jumping:
         player_velocity_y = jump_velocity
