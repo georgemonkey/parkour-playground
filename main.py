@@ -256,7 +256,6 @@ def onKeyPress(key):
         decreaseScore()
         generateLevel()
         star_gen()
-        app.running = True
         app.timer = 15
         score = 0
         scoreboard.value = f'score: {score}'
