@@ -230,7 +230,7 @@ def onStep():
 
         if app.t_timer >= 1:
             draw_tsunami(app.xt)
-            app.xt += 1
+            app.xt += 2
 
         if tsunami_group.containsShape(Player):
             app.t_timer = 0
