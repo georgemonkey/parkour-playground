@@ -181,10 +181,6 @@ def Play_Again():
 def onStep():
     if app.running:
         
-        #creates the tsunami after one second
-        if app.t_timer >= 1:
-            draw_tsunami(app.xt)
-            app.xt += 2
         
         #players gravity
         global player_velocity_y, is_jumping
@@ -246,6 +242,7 @@ def onStep():
             #once the timer hits 0, ends the game
             elif app.timer == 0:
                 Play_Again()
+        
 
         #upon the tsunami hitting the player
         if tsunami_group.hitsShape(Player):
@@ -255,6 +252,11 @@ def onStep():
             app.xt = 50
             decreaseScore()
             generateLevel()
+        
+        #creates the tsunami after one second
+        if app.t_timer >= 1.5:
+            draw_tsunami(app.xt)
+            app.xt += 2
 
 # ---- key press controls ----
 def onKeyPress(key):
